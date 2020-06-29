@@ -1,2 +1,2 @@
 # rtj-scala-advanced
- Repo following classes from Rock the JVM advanced Scala course
+ Rock the JVM Advanced Scala classes
