@@ -65,16 +65,16 @@ object ParallelUtils extends App {
       - Very special cases, create your own TaskSupport
    */
 
-  aParVector.tasksupport = new TaskSupport {
-    // environment that manages the threads
-    override val environment: AnyRef = _
-    // schedules a thread to run in parallel
-    override def execute[R, Tp](fjtask: Task[R, Tp]): () => R = ???
-    // same thing, but block until the result is available
-    override def executeAndWaitResult[R, Tp](task: Task[R, Tp]): R = ???
-    // number of threads
-    override def parallelismLevel: Int = ???
-  }
+//  aParVector.tasksupport = new TaskSupport {
+//    // environment that manages the threads
+//    override val environment: AnyRef = _
+//    // schedules a thread to run in parallel
+//    override def execute[R, Tp](fjtask: Task[R, Tp]): () => R = ???
+//    // same thing, but block until the result is available
+//    override def executeAndWaitResult[R, Tp](task: Task[R, Tp]): R = ???
+//    // number of threads
+//    override def parallelismLevel: Int = ???
+//  }
 
   // 2 - atomic ops and references
   val atomic = new AtomicReference[Int](2)
