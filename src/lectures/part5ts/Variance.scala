@@ -41,7 +41,7 @@ object Variance extends App {
     ccage.animal = new Crocodile
    */
   //  class ContravariantVariableCage[-T](var animal: T) // also in COVARIANT POSITION
-  class InvariantVariableCage[-T](var animal: T) // ok
+  //  class InvariantVariableCage[-T](var animal: T) // ok
 
   // trait AnotherCovariantCage[+T] {
   //   def addAnimal(animal: T) // CONTRAVARIANT POSITION
@@ -92,4 +92,69 @@ object Variance extends App {
       - method arguments are in CONTRAVARIANT position
       - return types are in COVARIANT position
    */
+
+  /**
+   * 1. Invariant, covariant, contravariant Parking[T](things: List[T]) {
+   *   park(vehicle: T)
+   *   impound(vehicles: List[T])
+   *   checkVehicles(conditions: String): List[T]
+   * }
+   *
+   * 2. used someone else's API: IList[T]
+   * 3. Parking = monad!
+   *    - flatMap
+   */
+  class Vehicle
+  class Bike extends Vehicle
+  class Car extends Vehicle
+
+  class IList[T]
+
+  /// 1
+
+  class InvariantParking[T](things: List[T]) {
+    def park(vehicle: T): InvariantParking[T] = ???
+    def impound(vehicle: List[T]): InvariantParking[T] = ???
+    def checkVehicles(conditions: String): List[T] = ???
+
+    def flatMap[S](f: T => InvariantParking[S]): InvariantParking[S] = ???
+  }
+
+  class CovariantParking[+T](things: List[T]) {
+    def park[S >: T](vehicle: S): ContravariantParking[S] = ???
+    def impound[S >: T](vehicle: List[S]): ContravariantParking[S] = ???
+    def checkVehicles(conditions: String): List[T] = things
+
+    def flatMap[S](f: T => CovariantParking[S]): CovariantParking[S] = ???
+  }
+
+  class ContravariantParking[-T](things: List[T]) {
+    def park(vehicle: T): ContravariantParking[T] = ???
+    def impound(vehicle: List[T]): ContravariantParking[T] = ???
+    def checkVehicles[S <: T](conditions: String): List[S] = ???
+
+    def flatMap[R <: T, S](f: R => ContravariantParking[S]): ContravariantParking[S] = ???
+  }
+
+  /*
+   Rule of thumb
+   - use covariance = COLLECTION OF THINGS
+   - use contravariance = GROUP OF ACTIONS
+   */
+
+  // 2
+
+  class ICovariantParking[+T](things: IList[T]) {
+    def park[S >: T](vehicle: S): ICovariantParking[S] = ???
+    def impound[S >: T](vehicle: IList[S]): ICovariantParking[S] = ???
+    def checkVehicles[S >: T](conditions: String): IList[S] = ???
+  }
+
+  class IContravariantParking[-T](things: IList[T]) {
+    def park(vehicle: T): IContravariantParking[T] = ???
+    def impound[S <: T](vehicle: IList[S]): ICovariantParking[S] = ???
+    def checkVehicles[S <: T](conditions: String): IList[S] = ???
+  }
+
+  // 3
 }
