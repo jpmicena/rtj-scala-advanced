@@ -60,9 +60,9 @@ object TypeMembers extends App {
   //    override def tail: MList = tl
   //  }
 
-  class IntList(hd: Int, tl: IntList) extends MList with ApplicableToNumbers {
-    type A = Int
-    override def head: Int = hd
-    override def tail: MList = tl
-  }
+//  class IntList(hd: Int, tl: IntList) extends MList with ApplicableToNumbers {
+//    type A = Int
+//    override def head: Int = hd
+//    override def tail: MList = tl
+//  }
 }
